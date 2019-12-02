@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "Leetcode - 1038"
+date:   2019-12-02
+categories: leetcode medium
+---
+After skipping a few easy ones here another one with medium difficulty : [Binary Search Tree to Greater Sum Tree](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/ "Binary Search Tree to Greater Sum Tree"). And the first one where I sort of black out.
+ 
+I mean I know what a BST is and I get what they mean by a GST. But how do we "do" it? Another thought was that even if I submit a recursive solution, will that be acceptable?
+
+Let's park the second thought and at least get a solution first. From the example, it was clear that the reverse of inorder traversal is what we are looking for. Secondly, we are adding up on the previous sum, so a counter was necessary. I went ahead with this code :
+
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int s=0;
+    TreeNode* util(TreeNode* node) {
+        if (node==NULL)
+            return NULL;
+        
+        util(node->right);
+        node->val=node->val+s;
+        s=node->val;
+        util(node->left);
+        return NULL;
+    }
+    TreeNode* bstToGst(TreeNode* root) {
+        util(root,0);
+        return root;
+    }
+};
+{% endhighlight %}
+
+I didn't expect this to work. I mean I had a vague understanding of what I was supposed to do and what I was doing. But when it comes to subverting expectations coding beats Game of Thrones. So yeah..! It worked and was accepted.
+
+But I wasn't satisfied. Lets look at the other solutions to get a better understanding. But to my surprise, the highest rated solution had a similar approach and somewhat a similar explanation. So well, I did great I believe.
+
+Key Takeaways :
+1. A little confidence is not harmful:)
+2. When and how to implement unordered sets
