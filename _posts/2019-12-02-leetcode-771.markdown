@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Leetcode - 771"
+date:   2019-12-02
+categories: leetcode easy
+---
+Here's the first question : [Jewels and Stones](https://leetcode.com/problems/jewels-and-stones/ "Jewels and Stones"). I gave the question a quick read and the first thought that came to my head was, "This is string matching, right?" And if this is string matching then the obvious next step should be KMP.
+ 
+But wait is this actually string matching?
+
+One awesome thing about Leetcode is that you can give your custom input and get the expected output. I find this feature immensely helpful.
+ 
+So, I created the custom input `ab` and `aaa`. Lo and behold the output was `3`. I mean whaaaaaa....
+
+OK! Let's read the problem properly. And guess what? My basic understanding of the question was wrong. What appeared to be string matching was a simple frequency counting program. So, I wrote this piece of code :
+
+
+{% highlight c++ %}
+class Solution
+{
+public:
+    int numJewelsInStones(string J, string S)
+    {
+        int count=0;
+        for(int i=0;i<J.length();i++)
+        {
+            for(int j=0;j<S.length();j++)
+            {
+                if(J[i]==S[j])
+                    count++;
+            }
+        }
+        return count;
+    }
+};
+{% endhighlight %}
+
+So, is this it? I mean this possibly can't get accepted. Let's submit it anyway, maybe?
+And it was accepted. An `O(m*n)` approach? Leetcode are you kidding me? There has to be a better approach. I could not find any optimizations, so I headed towards the discussions section. 
+
+An `O(m+n)` [approach](https://leetcode.com/lee215/), interesting.  
+{% highlight c++ %}
+class Solution
+{
+public:
+    int numJewelsInStones(string J, string S) {
+        int res = 0;
+        unordered_set<char> setJ(J.begin(), J.end());
+        for (char s : S)
+            if (setJ.count(s)) res++;
+        return res;
+    }
+};
+{% endhighlight %}
+
+
+Time to read up on [unordered sets](https://www.geeksforgeeks.org/unordered_set-in-cpp-stl/)
+
+Key Takeaways :
+1. Read the question properly
+2. When and how to implement unordered sets
