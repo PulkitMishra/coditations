@@ -1,0 +1,77 @@
+---
+layout: post
+title:  "Leetcode - 807"
+date:   2019-12-02
+categories: leetcode medium
+---
+Let's try a medium one this time : [Max Increase to Keep City Skyline](https://leetcode.com/problems/max-increase-to-keep-city-skyline/ "Max Increase to Keep City Skyline"). Yeah okay, so vector of vectors input. I have never coded in C++ before. Might require some googling.
+ 
+Great! So, essentially we can access it like a 2D array.
+
+One thing though, the question in itself is poorly explained to say the least. So, I just looked at the example and coded this : 
+
+
+{% highlight c++ %}
+class Solution
+{
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int rowmax[grid.size()] ={};
+        int colmax[grid[0].size()]={};
+        for(int i=0;i<grid[0].size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                rowmax[i]=max(rowmax[i],grid[i][j]);
+                colmax[i]=max(colmax[i],grid[j][i]);
+            }
+        }
+        int sum =0;
+        for(int i=0;i<grid[0].size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                sum = sum -grid[i][j]+min(rowmax[i],colmax[i]);
+            }
+        }
+        return sum;
+    }
+};
+{% endhighlight %}
+
+WeeWooWeeWoo!! Wrong Answer. Well that was a setback. I thought that this one too was pretty easy and had already thought that I'd rant on how even the medium level question on Leetcode are subpar. But no sir! Overconfidence is bad and we are back to square zero, I guess. 
+
+Let's play this fun little game of debugging where the criminal tries to find the clues. I finally found out that logic was right but the implementation was not. The error was in finding the max for each column.
+
+{% highlight c++ %}
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int rowmax[grid.size()] ={};
+        int colmax[grid[0].size()]={};
+        for(int i=0;i<grid[0].size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                rowmax[i]=max(rowmax[i],grid[i][j]);
+                colmax[j]=max(colmax[j],grid[i][j]);
+            }
+        }
+        int sum =0;
+        for(int i=0;i<grid[0].size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                sum = sum -grid[i][j]+min(rowmax[i],colmax[j]);
+            }
+        }
+        return sum;
+    }
+};
+{% endhighlight %}
+
+This question had very little learning to offer.
+
+Key Takeaways :
+1. Overconfidence Bad.
