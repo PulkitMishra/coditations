@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Leetcode - 1108"
+date:   2019-12-02
+categories: leetcode easy
+---
+Next up : [Defanging an IP Address](https://leetcode.com/problems/defanging-an-ip-address/ "Defanging an IP Address"). Cool. So, I have seen this before somewhere. Maybe on hackerrank.
+
+Initially, I thought maybe C++ also has a string replace function. Unfortunately it doesn't. In any case, here's a simple implementation.
+
+{% highlight c++ %}
+class Solution {
+public:
+    string defangIPaddr(string address) {
+        string ans="";
+        for(int i=0;i<address.length();i++)
+        {
+            if(address[i]=='.')
+            {
+             ans=ans+"[.]";   
+            }
+            else
+            {
+                ans=ans+address[i];
+            }
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+This is so easy, I'm not even going to waste a single moment of my life on this.
+
+Key Takeaways :
+1. Avoid easy questions maybe(?)
