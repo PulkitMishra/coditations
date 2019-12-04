@@ -62,12 +62,12 @@ public:
 };
 {% endhighlight %}
 
-So, we have 'normalized' both the strings here - Pattern as well as Word.
-We create a map that basically sets values(size of map) to the keys(character) if the key has not already occured or not.
+So, we have 'normalized' both the strings here - Pattern as well as Word. Normalized means that all have been reset to begin from a and the next new char is b, next is c and so on.
+We create a map that basically sets values(size of map) to the keys(character) if the key has not already occured.
 Now the map serves as a function to generate the normalized strings.
 
 Time to read up on [unordered maps](https://www.geeksforgeeks.org/unordered_map-in-cpp-stl/)
 
 Key Takeaways :
 1. Maps are like python dictionaries(?)
-2. When and how to implement unordered sets
+2. Concept of normalizing strings

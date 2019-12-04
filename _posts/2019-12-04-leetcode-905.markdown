@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Leetcode - 905"
+date:   2019-12-04
+categories: leetcode easy
+---
+An easy one : [Sort Array By Parity](https://leetcode.com/problems/sort-array-by-parity/ "Sort Array By Parity"). I will carry forward today's 4 question tomorrow. So, 9 questions are supposed to be done tomorrow.
+ 
+This in particular is easy. Nothing better can be done than linear time but we can reduce space complexity by in place swapping.
+
+Here's how:
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A)
+    {
+        int j=0;
+        for(int i=0;i<A.size();i++)
+        {
+            if(A[i]%2==0)
+                swap(A[j++],A[i]);
+        }
+        return A;
+    }
+};
+{% endhighlight %}
+
+Neat. The basic idea is that we are pulling all even numbers to the front and have maintained a counter i.e. `j` to do the same.
+
+Key Takeaways :
+1. In place swapping by swap()
