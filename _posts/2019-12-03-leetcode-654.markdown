@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Leetcode - 654"
+date:   2019-12-03
+categories: leetcode medium
+---
+Missed out on a day yesterday. So gotta do ten today. And the first one that I pick up is one of those - you know easy to understand but tough to code : [Maximum Binary Tree](https://leetcode.com/problems/maximum-binary-tree/ "Maximum Binary Tree"). I mean, I get it. I get what it wants, but  the question is "how?" This one was takinng a lot of time and I was constantly running into memory errors - which is bad! Like real bad.
+
+And boy.. oh boy! Hello to the first problem that made me give up and made me look at the discussion wihout even having a naive solution at hand.
+ 
+So, the solution that I found was pretty decent but not explained properly. Probably the explanation is not really needed as the [code](https://leetcode.com/problems/maximum-binary-tree/discuss/106146/C%2B%2B-O(N)-solution) here speaks for itself :
+
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        vector <TreeNode*> stk;
+        for(int i=0;i<nums.size();i++)
+        {
+            TreeNode* temp = new TreeNode(nums[i]);
+            while(!stk.empty()&&stk.back()->val<nums[i])
+            {
+                temp->left=stk.back();
+                stk.pop_back();
+            }
+            if(!stk.empty())
+                stk.back()->right=temp;
+            stk.push_back(temp);
+        }
+        return stk.front();
+    }
+};
+{% endhighlight %}
+
+The algorithm is simple.
+Firstly create an empty stack of nodes.
+Then for each number in input vector make a node.
+As long as the stack is not empty and the number at the top of stack is less than the number for which we just created a node - pop it and make it a left child of the node which we just created.
+If the stack is not empty then make the node that we just created a right child of node at the top of the stack.
+Push the node that we just created into the stack.
+
+Key Takeaways :
+1. More on Vectors - back(), front(), empty(), push_back() and pop_back()
+2. This particular problem can be used to solve a variety of problems and thus must be remembered as is.
