@@ -1,0 +1,44 @@
+---
+layout: post
+title:  "Leetcode - 814"
+date:   2019-12-03
+categories: leetcode medium
+---
+A medium one this time. Not moving onto hard untill I get completeley thorough with the medium ones : [Binary Tree Pruning](https://leetcode.com/problems/binary-tree-pruning/ "Binary Tree Pruning"). I have seen this somewhere at some top tier company's recriuting test. These people just rip off questions from leetcode like that? THE HYPE IS REAL!!!
+
+Trees and Recursion again. I'm getting better with handling trees in C++. This task here is actually a lot more easier than C, to be honest. One thing, I am not really sure about is Recursion. Do we leave it like that. Shouldn't we be going for iterative sloutions instead ?
+  
+Lets first get confident with Trees and Recursion itself and then we will think about the other things. Cool? Cool.
+
+The first thing that comes to my mind and rightly so that we need to traverse the tree in post order fashion. You see, check if left and right follow the given criteria and accordingly set the value of root. After tinkering around for some time. I got this :
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* pruneTree(TreeNode* root) {
+        if(root==NULL)
+            return NULL;
+        root->left=pruneTree(root->left);
+        root->right=pruneTree(root->right);
+        if(!root->left&&!root->right&&root->val==0)
+            return NULL;
+        return root;
+    }
+};
+{% endhighlight %}
+
+
+I'm still not confident with trees and recursion. I need to practise more, I guess.
+ 
+Key Takeaways :
+1. Identifying traversal in case of trees is mostly the first obvious step
+2. Deciding on the base case(s) the next
