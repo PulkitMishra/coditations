@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "Leetcode - 728"
+date:   2019-12-03
+categories: leetcode easy
+---
+An easy one to boost my morale : [Self Dividing Numbers](https://leetcode.com/problems/self-dividing-numbers/ "Self Dividing Numbers"). Looks easy and I guess is easy.
+ 
+And here's the ode :
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector <int> ans;
+        int flag =1;
+        for(int i=left;i<=right;i++)
+        {
+            flag=1;
+            int j=i;
+            while(j>0)
+            {
+                int d=j%10;
+                if(d<=0||i%d!=0)
+                {
+                    flag=0;
+                    break;
+                }
+                j=j/10;
+            }
+            if(flag)
+            {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+Gets accepted in the first attempt. Feels nice. Doesnt add anything of value.
+
+Key Takeaways :
+1. Take care of division by 0 always
