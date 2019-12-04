@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "Leetcode - 890"
+date:   2019-12-03
+categories: leetcode medium
+---
+This solves yesterday's mess : [Find and Replace Pattern](https://leetcode.com/problems/find-and-replace-pattern/ "Find and Replace Pattern"). Looks easy. ANd is infact easy. Will ned some sort of hashing for sure.
+
+I wrote this piece of 'hacky hashy' code :
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern){
+        vector<string> ans;
+        for(int i=0;i<words.size();i++)
+        {
+            int hash1[26]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+            int hash2[26]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+            int flag=1;
+            for(int j=0;j<pattern.length();j++)
+            {
+                if(hash1[pattern[j]-97]==-1&&hash2[words[i][j]-97]==-1)
+                {
+                    hash1[pattern[j]-97]=words[i][j]-97;
+                    hash2[words[i][j]-97]=0;
+                }
+                else if(hash1[pattern[j]-97]!=words[i][j]-97)
+                {
+                    flag=0;
+                    break;
+                }
+            }
+            if(flag==1)
+            {
+                ans.push_back(words[i]);
+            }
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+It was accepted and in fact performed decently. All that is fine and great but clearly this is not what you can call "good code" by any means. IT IS A CODE THAT EXISTS. Here's [lee215](https://leetcode.com/lee215/) to the rescue again.
+{% highlight c++ %}
+class Solution
+{
+public:
+        vector<string> findAndReplacePattern(vector<string> words, string p) {
+        vector<string> res;
+        for (string w : words) if (F(w) == F(p)) res.push_back(w);
+        return res;
+    }
+
+    string F(string w) {
+        unordered_map<char, int> m;
+        for (char c : w) if (!m.count(c)) m[c] = m.size();
+        for (int i = 0; i < w.length(); ++i) w[i] = 'a' + m[w[i]];
+        return w;
+    }
+};
+{% endhighlight %}
+
+So, we have 'normalized' both the strings here - Pattern as well as Word.
+We create a map that basically sets values(size of map) to the keys(character) if the key has not already occured or not.
+Now the map serves as a function to generate the normalized strings.
+
+Time to read up on [unordered maps](https://www.geeksforgeeks.org/unordered_map-in-cpp-stl/)
+
+Key Takeaways :
+1. Maps are like python dictionaries(?)
+2. When and how to implement unordered sets
