@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "Leetcode - 657"
+date:   2019-12-03
+categories: leetcode easy
+---
+One more please one more. Yay! Here's the next easy one : [Robot Return to Origin](https://leetcode.com/problems/robot-return-to-origin/ "Robot Return to Origin"). Lets see how quickly can we do it.
+ 
+Less than a minute. Yay! Yeah, this was pretty easy. But still! :
+
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        int u=0;
+        int l=0;
+        for (int i=0;i<moves.length();i++)
+        {
+            if(moves[i]=='L')
+                l++;
+            else if(moves[i]=='R')
+                l--;
+            if(moves[i]=='U')
+                u++;
+            else if(moves[i]=='D')
+                u--;
+        }
+        if(l==0 && u==0)
+            return true;
+        else
+            return false;
+    }
+};
+{% endhighlight %}
+
+Gets accepted in the first attempt. Lets move on to some serious stuff.
