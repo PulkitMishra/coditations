@@ -1,0 +1,71 @@
+---
+layout: post
+title:  "Leetcode - 104"
+date:   2019-12-04
+categories: leetcode easy
+---
+Last one for today and HAVE TO D0 10 medium ones tomorrow when I wake up. In any case, here : [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/ "Maximum Depth of Binary Tree"). Now see, this is getting more and more frustrating. I know this is recursion. I know there has ro be a better way out. I dont know what. I am simply making no progress.
+ 
+Leetcode should provide something like ideal solution. Or better, not allow solutions that take more time by giing a TLE. I should seriously go back to codechef or even better codeforces.
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        int l = maxDepth(root->left)+1;
+        int r = maxDepth(root->right)+1;
+        return max(l,r);
+    }
+};
+
+{% endhighlight %}
+
+Lets have a look at the discussion. But, I know that wont satisfy me either. But still.
+
+And lo and behold, we have a BFS based solution:
+
+{% highlight c++ %}
+class Solution
+{
+public:
+    int maxDepth(TreeNode *root){
+    if(root == NULL)
+        return 0;
+    
+    int res = 0;
+    queue<TreeNode *> q;
+    q.push(root);
+    while(!q.empty())
+    {
+        ++ res;
+        for(int i = 0, n = q.size(); i < n; ++ i)
+        {
+            TreeNode *p = q.front();
+            q.pop();
+            
+            if(p -> left != NULL)
+                q.push(p -> left);
+            if(p -> right != NULL)
+                q.push(p -> right);
+        }
+    }
+    
+    return res;
+}
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. BFS to find depth of tree
+2. BFS implementation using queue
