@@ -31,6 +31,8 @@ public:
 
 {% endhighlight %}
 
+GFG points out that we should first make recursive calls and then return the greater value after incrementing by 1. 
+
 Lets have a look at the discussion. But, I know that wont satisfy me either. But still.
 
 And lo and behold, we have a BFS based solution:
@@ -67,5 +69,4 @@ public:
 {% endhighlight %}
 
 Key Takeaways :
-1. BFS to find depth of tree
-2. BFS implementation using queue
+1. Need to get the recursion mess solved
