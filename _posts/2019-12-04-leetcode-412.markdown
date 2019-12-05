@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Leetcode - 412"
+date:   2019-12-04
+categories: leetcode easy
+---
+Next up : [Fizz Buzz](https://leetcode.com/problems/fizz-buzz/ "Fizz Buzz"). I've seen this somewhere else. I guess on HackerRank's Euler project. I remember seeing some super duper optimizized solution to this. 
+
+As of now here's a naive one. Code :
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector <string> ans;
+        for(int i=1;i<=n;i++)
+        {
+            if(i%15==0)
+                {
+                ans.push_back("FizzBuzz");
+                }
+            else if(i%5==0)
+                {ans.push_back("Buzz");
+                }
+            else if(i%3==0)
+                {ans.push_back("Fizz");
+                }
+            else
+                ans.push_back(to_string(i));
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+BUt obviously we can avoid using `%` as its computationaly expensive. As pointed out [here](https://leetcode.com/problems/fizz-buzz/discuss/149627/C%2B%2B-0ms-Solution-beats-100.00-without-if-else) We can create a vector with all values set from `1 to n`. Then we can loop with `i+=3` and reset all the vector values to `Fizz`. Similarly for `i+=5` and `Buzz` and also for `i+=15` and `FizzBuzz`.
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> res(n);
+        for(int i = 1;i <= n; i++) {
+            res[i - 1] = to_string(i);
+        }
+        for(int i = 2;i < n; i += 3) {
+            res[i] = "Fizz";
+        }
+        for(int i = 4;i < n; i += 5) {
+            res[i] = "Buzz";
+        }
+        for(int i = 14;i < n; i += 15) {
+            res[i] = "FizzBuzz";
+        }
+        return res;
+    }
+};{% endhighlight %}
+
+
+Key Takeaways :
+1. % is computationally expensive

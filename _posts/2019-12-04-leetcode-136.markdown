@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Leetcode - 16"
+date:   2019-12-04
+categories: leetcode easy
+---
+I was not really enjoying the questions for some reason and have switched to another track. An easy one : [Single Number](https://leetcode.com/problems/single-number/ "Single Number"). I have seen this before and this question exists to display the beauty of XOR.
+ 
+Based on a simple concept that xor of same numbers is always zero, here's the code:
+
+{% highlight c++ %}
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        for(int i=1;i<nums.size();i++)
+            nums[0]=nums[0]^nums[i];
+        return nums[0];
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. XOR is amazing

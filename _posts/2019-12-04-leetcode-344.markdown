@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "Leetcode - 344"
+date:   2019-12-04
+categories: leetcode easy
+---
+Next up : [Reverse String](https://leetcode.com/problems/reverse-string/ "Reverse String"). Easy-peasy. 
+
+One small thing to keep in mind is that we only need to traverse half the array and perform inplace swap.
+
+{% highlight c++ %}
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        int l=s.size();
+        for(int i=0;i<l/2;i++)
+            swap(s[i],s[l-i-1]);
+    }
+};
+{% endhighlight %}
