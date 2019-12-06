@@ -1,0 +1,118 @@
+---
+layout: post
+title:  "Leetcode - 94"
+date:   2019-12-05
+categories: leetcode medium
+---
+Binary Tree Inorder Traversal : [Maximum Depth of Binary Tree](https://leetcode.com/problems/binary-tree-inorder-traversal/ "Binary Tree Inorder Traversal"). I mean why the hell not. Also, yeah the problem with recursion is solved. Recursion is fine and acceptable. But! there are better solutions at hand at times:)
+ 
+This one I know van be done recursively and iteratively as well. Recursive code : 
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> ans;
+    void util(TreeNode* root)
+    {
+        if(root==NULL)
+            return;
+        util(root->left);
+        ans.push_back(root->val);
+        util(root->right);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        util(root);
+        return ans;
+    }
+        
+};
+{% endhighlight %}
+
+Kiddie Stuff. There was nothing really to it. Iterative stuff: 
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack <TreeNode*> stk;
+        TreeNode* cur = root;
+        do
+        {
+            while(cur!=NULL)
+            {
+                stk.push(cur);
+                cur=cur->left;
+            }
+            cur = stk.top();
+            stk.pop();
+            ans.push_back(cur->val);
+            cur=cur->right;
+        }
+        while(!stk.empty()||cur!=NULL);
+        return ans;
+    }
+        
+};
+{% endhighlight %}
+
+It doesn't end here. Bringing to you ladies and gentlemen, all the way from [here](https://leetcode.com/problems/binary-tree-inorder-traversal/discuss/31231/C%2B%2B-Iterative-Recursive-and-Morris), we have Morris Traversal.
+Pretty simple and neat. It revolves around the concept of linking the node to its inorder predecessor.
+
+Make a cur and temp node
+Set cur to root
+if left exits then set temp to rightmost node of cur's left subtree (set temp to cur->left and make on temp going right till it hits null or to cur)
+else simlpy print root and move to right 
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> nodes;
+        while (root) {
+            if (root -> left) {
+                TreeNode* pre = root -> left;
+                while (pre -> right && pre -> right != root) {
+                    pre = pre -> right;
+                }
+                if (!pre -> right) {
+                    pre -> right = root;
+                    root = root -> left;
+                } else {
+                    pre -> right = NULL;
+                    nodes.push_back(root -> val);
+                    root = root -> right;
+                }
+            } else {
+                nodes.push_back(root -> val);
+                root = root -> right;
+            }
+        }
+        return nodes;
+    }
+};
+{% endhighlight %}
+
+Interestingly, I had implemented something similar to this on my own without knowing about Morris traversal. Felt like a genius for 4 minutes and 35 seconds. 
+
+Key Takeaways :
+1. Iterative inorder
+2. Morris Traversal for inorder, preorder
