@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "Leetcode - 206"
+date:   2019-12-05
+categories: leetcode easy
+---
+Was just seeing some video on youtube where they were doing exactlt this : [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/ "Reverse Linked List"). Weird, how this one is opposite. The iterative solution is easier to think of and implement than the recursive one. Haha!
+ 
+No troubles at all with the iterative one. I guess all of it depends on how your brain has been conditioned to think. In any case, all we need to do here is have 3 pointers - `prev`,`cur`,`next` and all we need to do is start from `cur = head` and go to `cur = NULL` and keep on storing the next value of cur in next and making cur point to prev. Then increment prev to cur and cur to next. Code is pretty simple:
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = NULL;
+        ListNode* cur = head;
+        ListNode* next = NULL;
+        
+        while(cur!=NULL)
+        {
+            next = cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
+        }
+        head=prev;
+        return head;
+    }
+};
+{% endhighlight %}
+
+But obviously we could have just used two extra pointers if we had changed the head by simply replacing every occurance of cur with head.
+
+Kiddie Stuff. Now lets look into recursion. This could get umm.... tricky (?) : 
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL||head->next==NULL)
+            return head;
+        ListNode* rest = reverseList(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return rest;
+    }
+};
+{% endhighlight %}
+
+Yep! It was... weird. But always remember what the Brits taught ya' DIVIDE AND CONQUER. Divide the list in two parts - Head and Rest. Solve for Rest and Fix the first.
+
+Key Takeaways :
+1. We need two extra pointers for interartive and one for recursive
