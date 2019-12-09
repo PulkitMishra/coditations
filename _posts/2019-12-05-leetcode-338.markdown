@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "Leetcode - 338"
+date:   2019-12-05
+categories: leetcode medium
+---
+Finally I have the courage to approach medium ones again. Let's go : [Counting Bits](https://leetcode.com/problems/counting-bits/ "Counting Bits"). On a totally unrelated note, Counting Stars is a nice song. Anyway, there's a naive way to do it and that should take `nlogn` time. But that's not what we are looking for.
+
+Then obviously there is the `__builtin_popcount` as used here:
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> ans;
+        for(int i=0;i<=num;i++)
+        {
+            ans.push_back(__builtin_popcount(i));
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+But LeetCode says, dont use it. So, what next?
+
+Everything about this problem screams DP! DP! DP! But how? [Here](https://leetcode.com/problems/counting-bits/discuss/?currentPage=1&orderBy=most_votes&query=), we have two awesome solutions. I liked this one : 
+
+{% highlight c++ %}
+public int[] countBits(int num) {
+    int result[] = new int[num + 1];
+    int offset = 1;
+    for (int index = 1; index < num + 1; ++index){
+        if (offset * 2 == index){
+            offset *= 2;
+        }
+        result[index] = result[index - offset] + 1;
+    }
+    return result;
+}
+{% endhighlight %}
+
+There's another implementation using [Brian Kernighan’s Algorithm](https://leetcode.com/problems/counting-bits/discuss/79527/Four-lines-C%2B%2B-time-O(n)-space-O(n)) which is wayyyyy cooler.
+
+Key Takeaways :
+1. Approaching DP
+2. [Brian Kernighan’s Algorithm](https://www.geeksforgeeks.org/count-set-bits-in-an-integer/)

@@ -1,0 +1,57 @@
+---
+layout: post
+title:  "Leetcode - 448"
+date:   2019-12-05
+categories: leetcode easy
+---
+On to the next one : [Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/ "Find All Numbers Disappeared in an Array"). Lets do five more easy ones and wrap up those pending from 6th. ALso new rule, Now its 5 days a week and 10 problems each day. That translates to today we need to do 5 pending + 10 for today + 5 compensation = 20.
+
+This one in particular reminds me of what a wise man once said. If you don't know how to approach a problem. Throw a hashmap at it and everything will start making sense. I did that and the code worked. But it did poorly interms of space and also I am still doing the hacky hashes. Gotta improve on this.
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> ans;
+        int hash[nums.size()+1]={0};
+        for(int i=0;i<nums.size();i++)
+        {
+            hash[nums[i]]++;
+        }
+        for(int i=1;i<=nums.size();i++)
+        {
+            if(hash[i]==0)
+                ans.push_back(i);
+        }
+        return ans;
+    }
+};
+{% endhighlight %}
+
+There's a trick here. This involves wisely using the input array.
+Take the mod of the value
+We have to get its index and so -1
+Negate the value at the index if its positive
+print all indices 
+
+{% highlight c++ %}
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int len = nums.size();
+        for(int i=0; i<len; i++) {
+            int m = abs(nums[i])-1; // index start from 0
+            nums[m] = nums[m]>0 ? -nums[m] : nums[m];
+        }
+        vector<int> res;
+        for(int i = 0; i<len; i++) {
+            if(nums[i] > 0) res.push_back(i+1);
+        }
+        return res;
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. Nice Algo guyzzz (?)
+2. Hash table implementation

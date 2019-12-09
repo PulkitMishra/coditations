@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "Leetcode - 226"
+date:   2019-12-05
+categories: leetcode easy
+---
+This one's easy but his one can get me into gOOGLE : [Invert Binary Tree ](https://leetcode.com/problems/invert-binary-tree/submissions/ "Invert Binary Tree"). Recursive should be again easy here. I am beginning to see a pattern in tree traversal questions. That's great : 
+
+I guess all we have to do is traverse the tree and swap left child with right if one of them exits. 
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(!root||(!(root->left)&&!(root->right)))
+            return root;
+        swap(root->left,root->right);
+        invertTree(root->left);
+        invertTree(root->right);
+        return root;
+    }
+};
+{% endhighlight %}
+
+I wrote something bigger. But while typing this I had a brillian idea and the above beutiful piece of code is a result of the same.
+
+This can obviously be solved iteratively.
+
+Key Takeaways :
+1. I am coming gOOGLE xD
+2. Recursion for recursive DFS traversal, stack for iterative DFS and queue for iterative BFS

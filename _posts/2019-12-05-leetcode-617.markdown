@@ -1,0 +1,92 @@
+---
+layout: post
+title:  "Leetcode - 617"
+date:   2019-12-05
+categories: leetcode easy
+---
+Need to do 12 today. HAHAHAHA!! Anyway, here : [Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/ "Merge Two Binary Trees"). Looks easy. I mean just traverse both of them in the same fasion and create replicas - by creating a new node in case of that node being null and its counterpart being non null and augmenting it in case of both being non null.
+
+Pretty Simple:
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        
+        if(!t1 && !t2)
+        {
+            return NULL;
+        }
+        else if(!t2)
+        {
+            t2 = new  TreeNode(t1->val);
+            return t1;
+        }
+        else if(!t1)
+        {
+            t1 = new  TreeNode(t2->val);
+            return t2;
+        }
+        else
+        {
+            t1->val=t1->val+t2->val;
+            t2->val=t1->val;
+        }
+        t1->left = mergeTrees(t1->left,t2->left);
+        t1->right = mergeTrees(t1->right,t2->right);
+        return t1;
+    }
+};
+{% endhighlight %}
+
+However, its specified that we dont have to create new nodes. While it looks like it is an added complexity, it basically cleans up the code and also improves performance as in the above process we dont create new nodes and just make use of non null nodes. Visualize this as a network. Sweet :
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        
+        if(!t1 && !t2)
+        {
+            return NULL;
+        }
+        else if(!t2)
+        {
+            return t1;
+        }
+        else if(!t1)
+        {
+            return t2;
+        }
+        t1->val=t1->val+t2->val;
+        t2->val=t1->val;
+        t1->left = mergeTrees(t1->left,t2->left);
+        t1->right = mergeTrees(t1->right,t2->right);
+        return t1;
+    }
+};
+{% endhighlight %}
+
+I am sure there's an iterative solution too. But wont go there.
+
+Key Takeaways :
+1. Simultaneous traversal
+2. This may also solve the symmetric binary tree problem

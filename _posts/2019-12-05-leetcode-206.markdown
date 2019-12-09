@@ -4,7 +4,7 @@ title:  "Leetcode - 206"
 date:   2019-12-05
 categories: leetcode easy
 ---
-Was just seeing some video on youtube where they were doing exactlt this : [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/ "Reverse Linked List"). Weird, how this one is opposite. The iterative solution is easier to think of and implement than the recursive one. Haha!
+Was just seeing some video on youtube where they were doing exactly this : [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/ "Reverse Linked List"). Weird, how this one is opposite. The iterative solution is easier to think of and implement than the recursive one. Haha!
  
 No troubles at all with the iterative one. I guess all of it depends on how your brain has been conditioned to think. In any case, all we need to do here is have 3 pointers - `prev`,`cur`,`next` and all we need to do is start from `cur = head` and go to `cur = NULL` and keep on storing the next value of cur in next and making cur point to prev. Then increment prev to cur and cur to next. Code is pretty simple:
 
