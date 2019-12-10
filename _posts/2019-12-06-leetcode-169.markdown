@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "Leetcode - 169"
+date:   2019-12-06
+categories: leetcode easy
+---
+Throwing the hash map at it this one : [Majority Element](https://leetcode.com/problems/majority-element/ "Majority Element"). ANd it gets solved. Also I finally understand how to use hash maps. That's a big win.
+
+Remember when you cant solve a problem, throw a hashmap at it and it will "auto" get solved. Code: 
+
+{% highlight c++ %}
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> m; 
+        for(int i=0;i<nums.size();i++)
+        {
+            m[nums[i]]++;
+        }
+        for(auto i : m) 
+          { 
+        if(i.second > nums.size() / 2) 
+        { 
+            return i.first; 
+        } 
+    } 
+        return 0;
+    }
+};
+{% endhighlight %}
+
+Neat and sweet but apparently we can do better interms of space. Introducing to you an [O(N) time and O(1) space solution](https://leetcode.com/problems/majority-element/discuss/51613/O(n)-time-O(1)-space-fastest-solution) using Boyer-Moore Majority Vote Algorithm.
+
+{% highlight c++ %}
+public class Solution {
+    public int majorityElement(int[] num) {
+
+        int major=num[0], count = 1;
+        for(int i=1; i<num.length;i++){
+            if(count==0){
+                count++;
+                major=num[i];
+            }else if(major==num[i]){
+                count++;
+            }else count--;
+            
+        }
+        return major;
+    }
+}
+{% endhighlight %}
+
+Key Takeaways :
+1. Correct way of using Hash maps is with auto. Insert normally like python dictionary but search using auto.
+2. [Majority Vote](https://www.geeksforgeeks .org/majority-element/)
