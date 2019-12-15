@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "Leetcode - 669"
+date:   2019-12-06
+categories: leetcode easy
+---
+We are finally wrapping up this : [Trim a Binary Search Tree](https://leetcode.com/problems/peak-index-in-a-mountain-array/ "Trim a Binary Search Tree"). Yep! More work needed here.
+
+So, the logic here is do the normal traversal and if rule is broken then change the direction of reversal. 
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* trimBST(TreeNode* root, int L, int R) {
+        if(!root)
+            return NULL;
+        else if(root->val < L)
+            return trimBST(root->right, L, R);
+        else if(root->val > R)
+           return trimBST(root->left, L, R);
+        root->left = trimBST(root->left, L, R);
+        root->right = trimBST(root->right, L, R);
+        return root;
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. Mostly tree problems are all traversal based. 
+2. 

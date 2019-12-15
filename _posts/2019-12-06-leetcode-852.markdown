@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "Leetcode - 852"
+date:   2019-12-06
+categories: leetcode easy
+---
+I'm ashamed of myself and will not say anything : [Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/ "Peak Index in a Mountain Array"). So we just have to find the index where the switch happens.
+
+If we subtract the i+1 th element from i+1 and then find the first positive element, I guess we will find the index.  But is there a better way?
+{% highlight c++ %}
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& a) {
+        for(int i=0;i<a.size()-1;i++)
+        {
+            a[i]=a[i]-a[i+1];
+        }
+        for(int i=0;i<a.size()-1;i++)
+        {
+            if(a[i]>0)
+                return i;
+        }
+        return -1;
+        
+    }
+};
+{% endhighlight %}
+
+Of course there is and I am a stupid that I missed out on this. All that was supposed to be done was to find the maximum element because of the assumptions that it is given to be a mountain. And whats a mountain? Two sorted arrays. So when it is increasing at mid then `left = mid` and when decreasing `right = mid`. Rings any bells?
+
+BINARY EFFING SEARCH!!
+
+{% highlight c++ %}
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& a) {
+        int s = 0;
+        int e = a.size()-1;
+        while(s<e)
+        {
+            int m= (s+e)/2;
+            if(a[m]>a[m+1])
+                e=m;
+            else
+                s=m+1;
+            cout<<m;
+        }
+        return s; 
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. Nice application of binary search
+2. [Golden Section Search](https://medium.com/datadriveninvestor/golden-section-search-method-peak-index-in-a-mountain-array-leetcode-852-a00f53ed4076)
