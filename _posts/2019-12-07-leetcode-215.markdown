@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Leetcode - 237"
+date:   2019-12-07
+categories: leetcode easy
+---
+New mission guys : [Delete Node in a Linked List](https://leetcode.com/problems/delete-node-in-a-linked-list/ "Delete Node in a Linked List"). So just delete it? Well, yes but actually no!
+
+Two things. Firstly, we need to take care of the fact that we need to make changes to the original linked list. So, need to use `*`. But, thats not it we also need to free memory by using `delete`. 
+
+{% highlight c++ %}
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node)
+    {
+        ListNode *t = node->next;
+        *node = *t;
+        delete t;
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. Use of `*`
+2. Freeing memory by using a temp node to store the next and then deleting the temp node
