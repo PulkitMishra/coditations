@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "Leetcode - 701"
+date:   2019-12-07
+categories: leetcode medium
+---
+I'm only be going to do easy ones : [Valid Anagram](https://leetcode.com/problems/valid-anagram/ "Valid Anagram"). THis is yet again one of my favourites. Anything like this, I will nail it.
+
+Boy! I love hashmaps. I know when to use them. I know their advantages. I know how to use them. Eveyting should be like these hashmaps.
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        unordered_map <char, int> m;
+        for(int i=0;i<s.length();i++)
+        {
+            m[s[i]]++;
+        }
+        for(int i=0;i<t.length();i++)
+        {
+            m[t[i]]--;
+        }
+        for (auto i:m)
+        {
+            if (i.second != 0)
+                return false;
+        }
+        return true;
+    }
+};
+{% endhighlight %}
+
+Plus, I can always pitch in with the fact that we can use our own homegrown hashmap whenver we require.
+
+Key Takeaways :
+1. Hashmap awesome.
+2. Just be careful with the `auto` and `second` thing while traversing them 
