@@ -2,7 +2,7 @@
 layout: post
 title:  "Leetcode - 701"
 date:   2019-12-07
-categories: leetcode medium
+categories: leetcode easy
 ---
 I'm only be going to do easy ones : [Valid Anagram](https://leetcode.com/problems/valid-anagram/ "Valid Anagram"). THis is yet again one of my favourites. Anything like this, I will nail it.
 

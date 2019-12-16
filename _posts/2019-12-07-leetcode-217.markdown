@@ -1,0 +1,53 @@
+---
+layout: post
+title:  "Leetcode - 217"
+date:   2019-12-02
+categories: leetcode easy
+---
+Hashmap all the way : [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/ "Contains Duplicate"). Also, I'm beginning to love `auto`. 
+
+I love hashmaps and STL and auto and C++ now. That's something.
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_map<int,int> m;
+        for(auto i:nums)
+        {
+            m[i]++;
+        }
+        for(auto i:m)
+        {
+            if (i.second > 1)
+            {
+                return true;
+            }
+        }
+        return false;
+        
+    }
+};
+{% endhighlight %}
+
+There's a better way though. I mean we dont need to create a hashmap first and then check it. We can check it on the go. In fact why are we not using unordered_sets.
+
+{% highlight c++ %}
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set <int> s;
+        for(auto i:nums)
+        {
+            if(s.find(i)!=s.end())
+                return true;
+            else
+                s.insert(i);
+        }
+        return false;
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. `find` returns iterator vs `count` returns the value of the key
