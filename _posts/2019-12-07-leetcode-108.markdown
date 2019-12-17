@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "Leetcode - 108"
+date:   2019-12-07
+categories: leetcode easy
+---
+Chugging ahead : [Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/ "Convert Sorted Array to Binary Search Tree"). We back to recursion and trees again.
+
+Base case would be when the input array is empty or only one element. Otherwise create a node with middle element and its left child is obtained by recursing for left subarray and right child for right subarray.
+
+{% highlight c++ %}
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums)
+    {
+        if(nums.size()==0)
+            return NULL;
+        else if(nums.size()==1)
+            return new TreeNode(nums[0]);
+        TreeNode* root = new TreeNode(nums[nums.size()/2]);
+        vector <int> l (nums.begin(), nums.begin()+nums.size()/2);
+        vector <int> r (nums.begin()+nums.size()/2 +1, nums.end());
+        root->left = sortedArrayToBST(l);
+        root->right = sortedArrayToBST(r);
+        return root;
+    }
+};
+{% endhighlight %}
+
+Key Takeaways :
+1. Recurion More Practice Need
+1. Hashmap awesome.
+2. Just be careful with the `auto` and `second` thing while traversing them 
